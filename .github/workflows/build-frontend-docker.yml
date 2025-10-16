@@ -22,7 +22,7 @@ jobs:
         run: |
           cd ./frontend
           npm install
-          npm run dev
+          npm run build
 
       - name: Build Docker image
         run: |
