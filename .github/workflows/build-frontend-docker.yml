@@ -1,0 +1,37 @@
+name: Build Frontend Docker Image
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install and Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build Docker image
+        run: |
+          docker build -t hello-devops-frontend:latest .
+
+      # (Optional) Push image ไป Docker Hub
+      # - name: Push image to Docker Hub
+      #   if: success()
+      #   run: |
+      #     echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+      #     docker tag hello-devops-frontend:latest ${{ secrets.DOCKER_HUB_USERNAME }}/hello-devops-frontend:latest
+      #     docker push ${{ secrets.DOCKER_HUB_USERNAME }}/hello-devops-frontend:latest
+
