@@ -30,7 +30,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t hello-devops-frontend:latest .
+          docker build -t hello-devops-frontend:latest ./frontend
 
       # (Optional) Push image ไป Docker Hub
       # - name: Push image to Docker Hub
